@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { env } from '../environments/environment';
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
