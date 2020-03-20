@@ -13,7 +13,7 @@ export class AuthService {
     params.set('password', password);
 
     let headers = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded)');;
-    return this.http.post(env.API_URL + '/do-login', params, {headers : headers}).subscribe({
+    return this.http.post<any>(env.getApiUrl() + '/do-login', params, {headers : headers}).subscribe({
       next : data => {
         this.onLoginSuccess(data);
       },
@@ -25,7 +25,18 @@ export class AuthService {
   private onLoginSuccess(data) {
 
   }
-  private onLogoutSuccess(err) {
 
+
+  logout() {
+    return this.http.post<any>(env.getApiUrl() + '/do-logout', {}).subscribe({
+      next : data => {this.onLogoutSuccess(data);},
+      error : err=>{
+          this.onLogoutSuccess(err);
+      }
+    })
+  }
+  
+  private onLogoutSuccess(data) {
+    this.router.navigateByUrl('/');
   }
 }
